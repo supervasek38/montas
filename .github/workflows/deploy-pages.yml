@@ -1,0 +1,70 @@
+name: Deploy MONTAS to GitHub Pages
+
+# The first release and subsequent updates are started explicitly in Actions.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get --enforce-lockfile
+
+      - name: Analyze Dart sources
+        run: flutter analyze --no-pub lib test
+
+      - name: Run tests
+        run: flutter test --no-pub --reporter expanded
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build Flutter Web for /montas/
+        run: flutter build web --release --no-pub --base-href /montas/ --no-web-resources-cdn
+
+      - name: Check site entry point
+        shell: bash
+        run: |
+          test -s build/web/index.html
+          test -s build/web/flutter_bootstrap.js
+          grep -Fq '<base href="/montas/">' build/web/index.html
+
+      - name: Upload website only
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4
