@@ -16,6 +16,9 @@ class JourneyWorkspace extends StatefulWidget {
 
 class _JourneyWorkspaceState extends State<JourneyWorkspace> {
   late int page = widget.initialPage;
+  bool showDirectory = false;
+  final savedSpecialists = <String>{};
+  final publicProfileKey = GlobalKey<_SpecialistScreenState>();
   int selectedDay = 1, planTab = 0, minutes = 20, version = 2;
   final radar = RadarData();
   final medication = MedicationData();
@@ -54,7 +57,7 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
   static const navLabels = [
     'Главная',
     'Мой план',
-    'Специалист',
+    'Специалисты',
     'Радар',
     'Программы',
     'Спросить',
@@ -64,6 +67,8 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
     'Устройства и сон',
     'Процедуры и поездки',
     'Мои данные',
+    'Мероприятия',
+    'Маркетплейс',
   ];
   @override
   void initState() {
@@ -171,7 +176,21 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
           StepStatus.scheduled => 'Шаг перенесён',
           StepStatus.done => 'Шаг выполнен',
         };
-  void navigate(int value) => setState(() => page = value);
+  void navigate(int value) => setState(() {
+    page = value;
+    if (value == 2) showDirectory = false;
+  });
+  void navigateSection(int value) => setState(() {
+    page = value;
+    if (value == 2) showDirectory = true;
+  });
+  void saveSpecialist(String id, bool saved) => setState(() {
+    if (saved) {
+      savedSpecialists.add(id);
+    } else {
+      savedSpecialists.remove(id);
+    }
+  });
   void askSpecialist() {
     navigate(5);
     askKey.currentState?.openSpecialist();
@@ -499,11 +518,22 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (context, box) {
       final mobile = box.maxWidth < 1050;
+      final topSections = [
+        ...navOrder,
+        if (box.maxWidth >= 1300) ...[12, 13],
+        5,
+        6,
+        if (box.maxWidth >= 2100) ...[7, 8, 9, 10, 11],
+      ];
+      final moreSections = [
+        for (var i = 0; i < navLabels.length; i++)
+          if (!topSections.contains(i)) i,
+      ];
       return Scaffold(
         bottomNavigationBar: !isExpert && mobile && page < 5
             ? NavigationBar(
                 selectedIndex: navOrder.indexOf(page),
-                onDestinationSelected: (i) => navigate(navOrder[i]),
+                onDestinationSelected: (i) => navigateSection(navOrder[i]),
                 backgroundColor: Colors.white,
                 indicatorColor: const Color(0xFFEAFBD9),
                 destinations: [
@@ -519,7 +549,7 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                           Icons.view_agenda_outlined,
                         ][i],
                       ),
-                      label: i == 2 ? 'Врач' : navLabels[i],
+                      label: i == 2 ? 'Врачи' : navLabels[i],
                     ),
                 ],
               )
@@ -558,17 +588,12 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                     else
                       const Spacer(),
                     if (!mobile) ...[
-                      for (final i in [
-                        ...navOrder,
-                        5,
-                        6,
-                        if (box.maxWidth >= 1750) ...[7, 8, 9, 10, 11],
-                      ])
+                      for (final i in topSections)
                         Padding(
                           padding: const EdgeInsets.only(right: 4),
                           child: TextButton(
                             key: ValueKey('nav-$i'),
-                            onPressed: () => navigate(i),
+                            onPressed: () => navigateSection(i),
                             style: TextButton.styleFrom(
                               backgroundColor: page == i
                                   ? C.soft
@@ -581,12 +606,12 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                             child: Text(navLabels[i]),
                           ),
                         ),
-                      if (box.maxWidth < 1750)
+                      if (moreSections.isNotEmpty)
                         PopupMenuButton<int>(
                           tooltip: 'Другие разделы',
-                          onSelected: navigate,
+                          onSelected: navigateSection,
                           itemBuilder: (_) => [
-                            for (final i in [7, 8, 9, 10, 11])
+                            for (final i in moreSections)
                               PopupMenuItem(
                                 value: i,
                                 child: Text(navLabels[i]),
@@ -595,7 +620,7 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Text(
-                              page >= 7
+                              moreSections.contains(page)
                                   ? (page == 9
                                         ? 'Сон'
                                         : page == 10
@@ -627,7 +652,7 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                     if (mobile)
                       PopupMenuButton<int>(
                         tooltip: 'Все разделы',
-                        onSelected: navigate,
+                        onSelected: navigateSection,
                         icon: const Icon(Icons.menu_rounded),
                         itemBuilder: (_) => [
                           for (var i = 0; i < navLabels.length; i++)
@@ -639,15 +664,37 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
               ),
             Expanded(
               child: IndexedStack(
-                index: isExpert ? 12 : page,
+                index: isExpert ? 14 : page,
                 children: [
                   dashboard(false),
                   dashboard(true),
-                  SpecialistScreen(
-                    workProfile: workProfile,
-                    embedded: true,
-                    schedule: appointments,
-                    onAsk: askSpecialist,
+                  IndexedStack(
+                    index: showDirectory ? 1 : 0,
+                    children: [
+                      SpecialistScreen(
+                        key: publicProfileKey,
+                        workProfile: workProfile,
+                        embedded: true,
+                        schedule: appointments,
+                        onAsk: askSpecialist,
+                        onDirectory: () => navigateSection(2),
+                        isFavorite: savedSpecialists.contains('anna'),
+                        onFavoriteChanged: (value) =>
+                            saveSpecialist('anna', value),
+                      ),
+                      SpecialistsDirectory(
+                        profile: workProfile,
+                        schedule: appointments,
+                        favorites: savedSpecialists,
+                        onFavorite: saveSpecialist,
+                        onOpenAnna: (online) {
+                          navigate(2);
+                          if (online != null) {
+                            publicProfileKey.currentState?.selectFormat(online);
+                          }
+                        },
+                      ),
+                    ],
                   ),
                   radarScreen(false),
                   radarScreen(true),
@@ -697,6 +744,8 @@ class _JourneyWorkspaceState extends State<JourneyWorkspace> {
                     },
                     onQuestions: askSpecialist,
                   ),
+                  const EventsScreen(),
+                  const MarketplaceScreen(),
                   ExpertWorkspace(
                     key: expertKey,
                     workProfile: workProfile,

@@ -20,6 +20,10 @@ Future<void> go(WidgetTester tester, int index, double width) async {
         ? find.byKey(ValueKey('mobile-nav-$index'))
         : find.byKey(ValueKey('nav-$index')),
   );
+  // The navigation now opens the directory; legacy scenarios continue to Anna.
+  if (index == 2) {
+    await tapVisible(tester, find.byKey(const ValueKey('directory-open-anna')));
+  }
 }
 
 void main() {

@@ -1,0 +1,47 @@
+{
+  "description": "MONTAS generated demo illustrations. Events 4:3; products 1:1. Original images retained unchanged.",
+  "images": [
+    {
+      "id": "event-sleep-lab",
+      "file": "assets/events/sleep-lab-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-ce8981a0-986b-445f-89a2-df4f2652cc83.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: ads-marketing. Create a HORIZONTAL event announcement photograph, EXACT aspect ratio 4:3, 1200 pixels wide by 900 pixels high. Event: Sleep & Longevity Lab, an intimate educational evening about sleep. Modern welcoming lecture studio, anonymous adult female speaker beside a small sculptural moon-shaped light, a few adult attendees seen softly out of focus in foreground, quiet architectural lighting, natural wood, evening blue through a window and sage fabrics. No signage or writing, no claims. Wider cinematic composition with the important subjects safely inside central 80%. Looks like an authentic carefully art-directed event photograph rather than a medical stock photo.",
+      "tool": "built-in image_gen"
+    },
+    {
+      "id": "event-analysis",
+      "file": "assets/events/analysis-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-48e7d32f-8221-4e52-a2e8-bc0aceab7429.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: ads-marketing. Create a HORIZONTAL event announcement photograph, EXACT aspect ratio 4:3, 1200 pixels wide by 900 pixels high. Event: Understanding laboratory reports without anxiety, a calm educational discussion. Close editorial view of a friendly anonymous female clinician in a sage blouse and an adult participant at a light oak table, discussing a paper with simple abstract charts with no readable words or numbers. Expressions attentive and relaxed, clinician gestures naturally to paper, no injections or blood, no dramatic medical equipment. Bright airy modern consultation room with softly blurred plant in background. Main subjects safely within central 80%.",
+      "tool": "built-in image_gen"
+    },
+    {
+      "id": "event-recovery",
+      "file": "assets/events/recovery-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-c9086c7a-61c8-4467-a95c-42da43104b19.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: ads-marketing. Create a HORIZONTAL event announcement photograph, EXACT aspect ratio 4:3, 1200 pixels wide by 900 pixels high. Event: Recovery practice, a small calming group workshop. Three anonymous adult participants of varied ages seated comfortably on neutral floor cushions in a beautiful airy studio, relaxed upright posture doing a gentle breathing pause with instructor, fully clothed in modest relaxed sage, cream and charcoal activewear. Soft late morning sunlight, warm timber floor, understated plants, real human proportions, welcoming everyday wellbeing rather than athletic performance. Wider editorial composition, important subjects inside central 80%.",
+      "tool": "built-in image_gen"
+    },
+    {
+      "id": "product-ring",
+      "file": "assets/market/ring-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-6e6ddebd-ad65-4b89-8c62-e2b7e4322081.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: product-mockup. Create a SQUARE 1:1 product photograph, 1024 by 1024 pixels, for fictional Ring X smart ring. ONE polished silver smart ring, substantial but elegant band, realistic dark inner sensor lining with tiny subtle sensor windows, standing at a slight angle to show the circular opening and silver outer band. Centered large hero object occupying about 65% of frame, on a seamless pale warm grey/sage studio surface, soft grounded shadow and controlled beautiful silver reflections. No hands, no box, no other products, no charging station, no brand marks. Crisp ecommerce photograph, not an icon or illustration.",
+      "tool": "built-in image_gen"
+    },
+    {
+      "id": "product-light",
+      "file": "assets/market/light-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-179a54e7-df04-4122-a7f2-62d7458b6569.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: product-mockup. Create a SQUARE 1:1 product photograph, 1024 by 1024 pixels, for a fictional white sunrise alarm lamp. ONE minimalist white circular sunrise alarm clock with a softly glowing warm peach-to-cream light diffuser, clean small white base, a subtle recessed control button but no digital numbers or lettering. Three-quarter product view, entire object visible, centered and occupying about 70% of frame. Seamless very pale warm sage studio backdrop, soft grounded shadow, matte white shell, believable high quality product photography. No bedside furniture, no other objects, no logos. Clearly a tabletop sunrise lamp, not a flat icon.",
+      "tool": "built-in image_gen"
+    },
+    {
+      "id": "product-mask",
+      "file": "assets/market/mask-v1.png",
+      "source": "C:\\Users\\1\\.codex\\generated_images\\01a15375-1f87-74e0-8c17-37f52da41198\\exec-8167ff57-72f7-435a-86c4-f24b4cbbeb61.png",
+      "prompt": "For MONTAS, a calm contemporary health and wellbeing prototype. Premium natural editorial photography, warm off-white and muted sage palette with restrained dark forest-green accents, believable materials, soft daylight, sophisticated and human, no text, no captions, no logos, no watermarks. A single finished image, never a collage or contact sheet. Use case: product-mockup. Create a SQUARE 1:1 product photograph, 1024 by 1024 pixels, for a graphite grey textile sleep mask. ONE beautifully made contoured padded eye mask with soft matte woven fabric, subtle stitching and adjustable elastic strap gently curving behind it. Three-quarter slightly overhead product view; eyemask front is clearly visible, realistic ergonomic nose cutout, realistic fabric thickness. Centered at about 70% of frame width on a seamless pale warm sage background with a soft grounded shadow. No face, no person, no packaging, no lettering, no accessories. Refined ecommerce product photography, not an icon.",
+      "tool": "built-in image_gen"
+    }
+  ]
+}

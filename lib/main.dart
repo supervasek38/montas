@@ -25,6 +25,10 @@ part 'expert_library.dart';
 part 'expert_library_views.dart';
 part 'expert_profile.dart';
 part 'expert_analytics.dart';
+part 'specialists.dart';
+part 'discovery.dart';
+part 'events.dart';
+part 'marketplace.dart';
 
 void main() => runApp(const MontasApp(seedDemo: true));
 
@@ -111,6 +115,9 @@ class SpecialistScreen extends StatefulWidget {
     this.onAsk,
     this.schedule,
     this.workProfile,
+    this.onDirectory,
+    this.isFavorite,
+    this.onFavoriteChanged,
     super.key,
   });
   final bool embedded;
@@ -118,6 +125,9 @@ class SpecialistScreen extends StatefulWidget {
   final VoidCallback? onAsk;
   final AppointmentSchedule? schedule;
   final ExpertWorkProfile? workProfile;
+  final VoidCallback? onDirectory;
+  final bool? isFavorite;
+  final ValueChanged<bool>? onFavoriteChanged;
   @override
   State<SpecialistScreen> createState() => _SpecialistScreenState();
 }
@@ -127,7 +137,8 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
       widget.workProfile?.published ?? const ProfessionalDetails();
   int day = 1;
   String? time = '18:30';
-  bool online = true, favorite = false, expanded = false;
+  bool online = true, _favorite = false, expanded = false;
+  bool get favorite => widget.isFavorite ?? _favorite;
   int tab = 0;
   late final appointments = widget.schedule ?? AppointmentSchedule();
   Appointment? get appointment => appointments.current;
@@ -499,15 +510,20 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                         children: [
                           Row(
                             children: [
-                              const Icon(
-                                Icons.arrow_back_rounded,
-                                size: 16,
-                                color: C.muted,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Специалисты',
-                                style: tx(13, color: C.muted),
+                              TextButton.icon(
+                                key: const ValueKey('specialists-breadcrumb'),
+                                onPressed: widget.onDirectory,
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                ),
+                                icon: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  size: 16,
+                                ),
+                                label: Text(
+                                  'Специалисты',
+                                  style: tx(13, color: C.muted),
+                                ),
                               ),
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 12),
@@ -667,9 +683,11 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                       : Icons.favorite_border_rounded,
                   favorite ? 'Убрать из избранного' : 'В избранное',
                   () {
-                    setState(() => favorite = !favorite);
+                    final next = !favorite;
+                    setState(() => _favorite = next);
+                    widget.onFavoriteChanged?.call(next);
                     notify(
-                      favorite
+                      next
                           ? 'Анна добавлена в избранное'
                           : 'Профиль удалён из избранного',
                     );

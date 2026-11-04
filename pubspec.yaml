@@ -19,6 +19,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/events/
+    - assets/market/
     - assets/radar/
     - assets/anna-demo.png
     - assets/ambient.svg
